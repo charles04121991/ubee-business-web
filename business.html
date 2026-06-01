@@ -1,1 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>UBee｜公司企業 / 店家合作申請</title>
 
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <style>
+    :root {
+      --bg: #000000;
+      --card: #121212;
+      --card2: #171717;
+      --input: #050505;
+      --text: #ffffff;
+      --muted: #a8a8a8;
+      --line: rgba(255,255,255,.14);
+      --line2: rgba(255,255,255,.22);
+      --primary: #ffffff;
+      --primary-text: #000000;
+      --danger: #ef4444;
+      --success: #22c55e;
+      --shadow: 0 20px 50px rgba(0,0,0,.35);
+    }
+
+    body.day {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --card2: #fafafa;
+      --input: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --line: rgba(0,0,0,.12);
+      --line2: rgba(0,0,0,.2);
+      --primary: #111111;
+      --primary-text: #ffffff;
+      --shadow: 0 16px 36px rgba(0,0,0,.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    body {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      height: 64px;
+      padding-top: env(safe-area-inset-top);
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      letter-spacing: .3px;
+      font-size: 16px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 34px 18px 42px;
+    }
+
+    .hero {
+      padding: 18px 2px 34px;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(38px, 9vw, 64px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+      font-weight: 1000;
+    }
+
+    .hero p {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.8;
+      font-weight: 800;
+    }
+
+    .card {
+      background: linear-gradient(145deg, var(--card), var(--card2));
+      border: 1px solid var(--line2);
+      border-radius: 28px;
+      padding: 26px 20px;
+      margin: 20px 0;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.2;
+      font-weight: 1000;
+      letter-spacing: -1px;
+    }
+
+    .desc {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+      font-weight: 800;
+      margin: 0 0 24px;
+    }
+
+    label {
+      display: block;
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 900;
+      margin: 20px 0 10px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: var(--input);
+      color: var(--text);
+      border: 1px solid var(--line2);
+      border-radius: 20px;
+      padding: 18px 18px;
+      font-size: 17px;
+      font-weight: 800;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--muted);
+      opacity: .9;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    select {
+      background-image:
+        linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+        linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+      background-position:
+        calc(100% - 25px) 50%,
+        calc(100% - 18px) 50%;
+      background-size: 7px 7px, 7px 7px;
+      background-repeat: no-repeat;
+      padding-right: 46px;
+    }
+
+    .type-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .type-item {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 22px 18px;
+      border: 1px solid var(--line2);
+      border-radius: 24px;
+      background: var(--input);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .type-item input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .emoji {
+      font-size: 26px;
+      line-height: 1;
+      width: 34px;
+      flex: 0 0 34px;
+      margin-top: 2px;
+    }
+
+    .type-title {
+      font-size: 22px;
+      font-weight: 1000;
+      margin-bottom: 7px;
+    }
+
+    .type-desc {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 800;
+    }
+
+    .check {
+      margin-left: auto;
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--line2);
+      border-radius: 50%;
+      flex: 0 0 24px;
+    }
+
+    .type-item.active {
+      border-color: var(--text);
+    }
+
+    .type-item.active .check {
+      border-color: var(--text);
+      background: var(--text);
+      box-shadow: inset 0 0 0 5px var(--input);
+    }
+
+    .notice {
+      border: 1px solid var(--line2);
+      border-radius: 20px;
+      padding: 18px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.8;
+      font-weight: 900;
+      margin: 22px 0;
+      background: rgba(255,255,255,.02);
+    }
+
+    body.day .notice {
+      background: rgba(0,0,0,.02);
+    }
+
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 22px;
+      padding: 20px 18px;
+      font-size: 24px;
+      font-weight: 1000;
+      background: var(--primary);
+      color: var(--primary-text);
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .btn:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .flow {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .flow-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border: 1px solid var(--line2);
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(255,255,255,.02);
+    }
+
+    body.day .flow-item {
+      background: rgba(0,0,0,.02);
+    }
+
+    .num {
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      background: var(--primary);
+      color: var(--primary-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 1000;
+      flex: 0 0 50px;
+    }
+
+    .flow-title {
+      font-size: 20px;
+      font-weight: 1000;
+      margin-bottom: 5px;
+    }
+
+    .flow-desc {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 800;
+    }
+
+    .status {
+      display: none;
+      margin-top: 16px;
+      border-radius: 18px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1.6;
+      border: 1px solid var(--line2);
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.error {
+      color: var(--danger);
+    }
+
+    .status.success {
+      color: var(--success);
+    }
+
+    .footer {
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      font-weight: 800;
+      padding: 18px 0 4px;
+    }
+
+    @media (min-width: 700px) {
+      .card {
+        padding: 34px 32px;
+        border-radius: 34px;
+      }
+
+      .wrap {
+        padding-top: 48px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">UBee｜公司企業 / 店家合作申請</div>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">UBee BUSINESS</div>
+      <h1>公司企業 /<br>店家合作申請</h1>
+      <p>
+        適合店家物品配送、企業文件急送、固定商務任務與臨時支援需求。<br>
+        送出後將傳送至 UBee 辦公室審核，由 UBee 進行評估與後續聯繫。
+      </p>
+    </section>
+
+    <form id="businessForm">
+      <section class="card">
+        <h2>基本資料</h2>
+        <p class="desc">請填寫聯絡資訊，方便 UBee 辦公室後續聯繫。</p>
+
+        <label for="businessName">公司 / 店家名稱</label>
+        <input id="businessName" name="businessName" type="text" placeholder="例如：OO電器行" required />
+
+        <label for="contactName">聯絡人</label>
+        <input id="contactName" name="contactName" type="text" placeholder="請輸入聯絡人姓名" required />
+
+        <label for="phone">手機</label>
+        <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="例如：0912345678" required />
+
+        <label for="lineId">LINE ID</label>
+        <input id="lineId" name="lineId" type="text" placeholder="請輸入可聯繫的 LINE ID" />
+
+        <label for="address">所在區域 / 詳細地址</label>
+        <input id="address" name="address" type="text" placeholder="例如：台中市豐原區⋯⋯" required />
+      </section>
+
+      <section class="card">
+        <h2>合作類型</h2>
+        <p class="desc">請選擇主要合作需求類型，可複選。</p>
+
+        <div class="type-list">
+          <label class="type-item">
+            <input type="checkbox" name="types" value="企業文件急送" />
+            <div class="emoji">🏢</div>
+            <div>
+              <div class="type-title">企業文件急送</div>
+              <div class="type-desc">合約、標書、重要文件、急件即時配送。</div>
+            </div>
+            <div class="check"></div>
+          </label>
+
+          <label class="type-item">
+            <input type="checkbox" name="types" value="店家物品配送" />
+            <div class="emoji">📦</div>
+            <div>
+              <div class="type-title">店家物品配送</div>
+              <div class="type-desc">商品、備料、包裹等配送服務。</div>
+            </div>
+            <div class="check"></div>
+          </label>
+
+          <label class="type-item">
+            <input type="checkbox" name="types" value="固定商務任務" />
+            <div class="emoji">📄</div>
+            <div>
+              <div class="type-title">固定商務任務</div>
+              <div class="type-desc">長期配合、固定路線、定期配送需求。</div>
+            </div>
+            <div class="check"></div>
+          </label>
+
+          <label class="type-item">
+            <input type="checkbox" name="types" value="臨時支援需求" />
+            <div class="emoji">💼</div>
+            <div>
+              <div class="type-title">臨時支援需求</div>
+              <div class="type-desc">臨時突發需求、彈性調度支援。</div>
+            </div>
+            <div class="check"></div>
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>需求內容</h2>
+
+        <label for="mainNeed">主要需求</label>
+        <input id="mainNeed" name="mainNeed" type="text" placeholder="例如：店家物品配送" required />
+
+        <label for="frequency">需求頻率</label>
+        <select id="frequency" name="frequency" required>
+          <option value="">請選擇</option>
+          <option value="每天">每天</option>
+          <option value="每週固定">每週固定</option>
+          <option value="每月固定">每月固定</option>
+          <option value="臨時需求">臨時需求</option>
+          <option value="尚未確定">尚未確定</option>
+        </select>
+
+        <label for="deliveryArea">配送 / 支援區域</label>
+        <input id="deliveryArea" name="deliveryArea" type="text" placeholder="例如：台中市豐原區、北屯區、西屯區" required />
+
+        <label for="note">備註說明</label>
+        <textarea id="note" name="note" placeholder="請簡單描述您的需求內容、特殊注意事項、固定時段或固定路線等⋯⋯"></textarea>
+
+        <div class="notice">
+          ※ 送出後會傳送到 UBee 辦公室審核，由 UBee 進行人工評估與後續聯繫。
+        </div>
+
+        <button id="submitBtn" class="btn" type="submit">送出合作需求</button>
+        <div id="statusBox" class="status"></div>
+      </section>
+    </form>
+
+    <section class="card">
+      <h2>合作流程說明</h2>
+      <p class="desc">簡單四步驟，快速開始合作。</p>
+
+      <div class="flow">
+        <div class="flow-item">
+          <div class="num">1</div>
+          <div>
+            <div class="flow-title">提交需求</div>
+            <div class="flow-desc">填寫合作申請表，送出您的合作需求。</div>
+          </div>
+        </div>
+
+        <div class="flow-item">
+          <div class="num">2</div>
+          <div>
+            <div class="flow-title">專人聯繫</div>
+            <div class="flow-desc">UBee 辦公室審核後，會主動與您聯繫。</div>
+          </div>
+        </div>
+
+        <div class="flow-item">
+          <div class="num">3</div>
+          <div>
+            <div class="flow-title">確認合作內容</div>
+            <div class="flow-desc">確認配送區域、需求頻率、任務內容與執行方式。</div>
+          </div>
+        </div>
+
+        <div class="flow-item">
+          <div class="num">4</div>
+          <div>
+            <div class="flow-title">開始服務</div>
+            <div class="flow-desc">正式安排 UBee 城市任務支援。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      UBee 城市任務平台<br>
+      Business Cooperation Application
+    </div>
+  </main>
+
+  <script>
+    const API_BASE = 'https://ubee-line-bot-2-zezw.onrender.com';
+    const BUSINESS_REGISTER_API = API_BASE + '/api/business/register';
+
+    /*
+      這裡之後請換成你的「店家合作官方帳號」加好友連結。
+      例如：
+      const BUSINESS_LINE_URL = 'https://lin.ee/xxxxxxx';
+    */
+    const BUSINESS_LINE_URL = 'https://lin.ee/sdF6AHh';
+
+    function applyAutoTheme() {
+      const now = new Date();
+      const hour = now.getHours();
+
+      if (hour >= 8 && hour < 18) {
+        document.body.classList.add('day');
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f5f5f5');
+      } else {
+        document.body.classList.remove('day');
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000000');
+      }
+    }
+
+    applyAutoTheme();
+    setInterval(applyAutoTheme, 60 * 1000);
+
+    const typeItems = document.querySelectorAll('.type-item');
+
+    typeItems.forEach(item => {
+      const input = item.querySelector('input');
+
+      function sync() {
+        item.classList.toggle('active', input.checked);
+      }
+
+      item.addEventListener('click', () => {
+        setTimeout(sync, 0);
+      });
+
+      sync();
+    });
+
+    const form = document.getElementById('businessForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusBox = document.getElementById('statusBox');
+
+    function showStatus(type, message) {
+      statusBox.className = 'status show ' + type;
+      statusBox.textContent = message;
+    }
+
+    function cleanPhone(phone) {
+      return String(phone || '').replace(/\s|-/g, '').trim();
+    }
+
+    function getSelectedTypes() {
+      return Array.from(document.querySelectorAll('input[name="types"]:checked'))
+        .map(input => input.value);
+    }
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const selectedTypes = getSelectedTypes();
+
+      const payload = {
+        businessName: document.getElementById('businessName').value.trim(),
+        contactName: document.getElementById('contactName').value.trim(),
+        phone: cleanPhone(document.getElementById('phone').value),
+        lineId: document.getElementById('lineId').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        cooperationTypes: selectedTypes,
+        mainNeed: document.getElementById('mainNeed').value.trim(),
+        frequency: document.getElementById('frequency').value,
+        deliveryArea: document.getElementById('deliveryArea').value.trim(),
+        note: document.getElementById('note').value.trim(),
+        source: 'ubee-business-web',
+        pageUrl: location.href,
+        submittedAtText: new Date().toLocaleString('zh-TW', { hour12: false })
+      };
+
+      if (!payload.businessName) {
+        showStatus('error', '請填寫公司 / 店家名稱');
+        return;
+      }
+
+      if (!payload.contactName) {
+        showStatus('error', '請填寫聯絡人姓名');
+        return;
+      }
+
+      if (!/^09\d{8}$/.test(payload.phone)) {
+        showStatus('error', '請輸入正確手機號碼，例如 0912345678');
+        return;
+      }
+
+      if (!payload.address) {
+        showStatus('error', '請填寫所在區域或詳細地址');
+        return;
+      }
+
+      if (selectedTypes.length === 0) {
+        showStatus('error', '請至少選擇一個合作類型');
+        return;
+      }
+
+      if (!payload.mainNeed) {
+        showStatus('error', '請填寫主要需求');
+        return;
+      }
+
+      if (!payload.frequency) {
+        showStatus('error', '請選擇需求頻率');
+        return;
+      }
+
+      if (!payload.deliveryArea) {
+        showStatus('error', '請填寫配送 / 支援區域');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = '送出中...';
+      showStatus('success', '正在送出合作需求，請稍候。');
+
+      try {
+        const res = await fetch(BUSINESS_REGISTER_API, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        let data = {};
+        try {
+          data = await res.json();
+        } catch (jsonError) {
+          data = {};
+        }
+
+        if (!res.ok) {
+          const errorMessage =
+            data.message ||
+            data.error ||
+            '送出失敗，請稍後再試。';
+
+          throw new Error(errorMessage);
+        }
+
+        showStatus('success', '合作需求已送出成功，即將前往 UBee 店家合作官方帳號。');
+        submitBtn.textContent = '已送出';
+
+        setTimeout(() => {
+          if (BUSINESS_LINE_URL.includes('請換成')) {
+            alert('合作需求已送出成功。請記得將 BUSINESS_LINE_URL 換成店家合作官方帳號連結。');
+            return;
+          }
+
+          location.href = BUSINESS_LINE_URL;
+        }, 1200);
+
+      } catch (err) {
+        console.error(err);
+        showStatus('error', err.message || '送出失敗，請確認網路後再試一次。');
+        submitBtn.disabled = false;
+        submitBtn.textContent = '送出合作需求';
+      }
+    });
+  </script>
+</body>
+</html>
